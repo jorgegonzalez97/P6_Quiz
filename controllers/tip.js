@@ -90,24 +90,24 @@ exports.destroy = (req, res, next) => {
 // GET /quizzes/:quizId/tips/:tipId/edit
 exports.edit = (req, res, next) => {
 
-    const {tip} = req;
+    const {tip,quiz} = req;
 
-    res.render('tips/edit', {tip});
+    res.render('tips/edit', {tip,quiz});
 };
 
 
 // PUT /quizzes/:quizId/tips/:tipId
 exports.update = (req, res, next) => {
 
-    const {tip, body} = req;
+    const {tip, body, quiz} = req;
 
-    tip.text = body.text;
+    tip.text = req.body.text;
     tip.accepted = false;
 
     tip.save({fields: ["text", "accepted"]})
     .then(tip => {
         req.flash('success', 'Tip edited successfully.');
-        res.redirect('/tips/index');
+        res.redirect('/quizzes/' + quiz.id);
     })
     .catch(Sequelize.ValidationError, error => {
         req.flash('error', 'There are errors in the form:');

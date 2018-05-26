@@ -136,7 +136,7 @@ router.delete('/quizzes/:quizId(\\d+)/tips/:tipId(\\d+)',
     sessionController.loginRequired,
     quizController.adminOrAuthorRequired,
     tipController.destroy);
-router.put('/quizzes/:quizId(\\d+)/tips/:tipId(\\d+)/edit',
+router.get('/quizzes/:quizId(\\d+)/tips/:tipId(\\d+)/edit',
     sessionController.loginRequired,
     tipController.adminOrAuthorRequired,
     tipController.edit);
